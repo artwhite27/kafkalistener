@@ -7,8 +7,6 @@ services:
       - "2181:2181"
     environment:
       ALLOW_ANONYMOUS_LOGIN: yes
-    networks:
-      - kafka_network
 
   kafka:
     image: bitnami/kafka
@@ -20,8 +18,6 @@ services:
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-    networks:
-      - kafka_network
 
   database:
     image: postgres:latest
@@ -34,12 +30,7 @@ services:
       - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
-    networks:
-      - kafka_network
 
 volumes:
   db-data:
     driver: local
-
-networks:
-  kafka_network:
